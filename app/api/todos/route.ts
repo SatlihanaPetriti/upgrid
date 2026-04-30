@@ -5,6 +5,7 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
         const { title, description } = body;
+        console.log("error---", description);
 
         if (!title || title.trim() === "") {
             return NextResponse.json({ error: "Title is required" }, { status: 400 })
@@ -13,6 +14,7 @@ export async function POST(request: Request) {
         const result = await prisma.todo.create({ data: { title, description } });
         return NextResponse.json(result, { status: 201 });
     } catch (error) {
+        console.log("error---", error);
         return NextResponse.json(
             { error: "Internal Server Error" },
             { status: 500 }
